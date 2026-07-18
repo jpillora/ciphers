@@ -1,0 +1,14 @@
+node_modules/
+test/
+scripts/
+.git/
+.gitignore
+.assetsignore
+*.md
+CLAUDE.md
+LICENSE
+bun.lock
+package.json
+wrangler.toml
+.wrangler/
+CNAME
