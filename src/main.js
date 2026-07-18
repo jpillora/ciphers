@@ -61,15 +61,25 @@ $("#reset").addEventListener("click", () => {
 
 $("#download").addEventListener("click", async () => {
   errorBox.hidden = true;
+  // Open the tab synchronously so the popup blocker sees the user gesture —
+  // the PDF lands in it once built (the first click also fetches pdf-lib
+  // from the CDN, which can outlive the gesture window on slow networks).
+  const win = window.open("", "_blank");
+  if (!win) {
+    errorBox.textContent = "Popup blocked — allow popups for this site to open the PDF.";
+    errorBox.hidden = false;
+    return;
+  }
+  win.document.write(
+    '<title>Decoder Ring</title><p style="font:15px system-ui;padding:1.5rem">Generating PDF…</p>',
+  );
   try {
     const bytes = await buildRingPdf({ alphabet: alphabetInput.value, title: titleInput.value });
     const url = URL.createObjectURL(new Blob([bytes], { type: "application/pdf" }));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${(titleInput.value || DEFAULT_TITLE).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "decoder-ring"}.pdf`;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 30_000);
+    win.location = url;
+    setTimeout(() => URL.revokeObjectURL(url), 60_000);
   } catch (err) {
+    win.close();
     errorBox.textContent = String(err.message || err);
     errorBox.hidden = false;
   }

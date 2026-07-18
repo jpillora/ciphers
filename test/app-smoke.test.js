@@ -61,10 +61,18 @@ beforeAll(async () => {
     els[id] = makeEl(id);
   }
   els.sim = makeSimContainer();
-  globalThis.lastAnchor = null;
+  globalThis.lastWin = null;
+  globalThis.window = {
+    open: () =>
+      (globalThis.lastWin = {
+        location: "",
+        closed: false,
+        close() { this.closed = true; },
+        document: { write() {} },
+      }),
+  };
   globalThis.document = {
     querySelector: (sel) => els[sel.replace(/^#/, "")] || null,
-    createElement: () => (globalThis.lastAnchor = { href: "", download: "", clicked: false, click() { this.clicked = true; } }),
   };
   URL.createObjectURL ||= () => "blob:fake";
   URL.revokeObjectURL ||= () => {};
@@ -121,20 +129,32 @@ test("dragging rotates the top disc and updates the readout", () => {
   expect(els.readout.textContent).toStartWith("shift 7");
 });
 
-test("download click builds a real PDF and triggers the anchor", async () => {
+test("open-PDF click builds a real PDF into a new window", async () => {
   els.title.value = "My Wheel";
   els.title.fire("input");
   await els.download.listeners.click[0]();
   expect(els.error.hidden).toBe(true);
-  expect(globalThis.lastAnchor.clicked).toBe(true);
-  expect(globalThis.lastAnchor.download).toBe("my-wheel.pdf");
-  expect(globalThis.lastAnchor.href).toStartWith("blob:");
+  expect(globalThis.lastWin).not.toBeNull();
+  expect(String(globalThis.lastWin.location)).toStartWith("blob:");
+  expect(globalThis.lastWin.closed).toBe(false);
 });
 
-test("download click surfaces unprintable-glyph errors instead of crashing", async () => {
+test("open-PDF click closes the window and surfaces unprintable-glyph errors", async () => {
   els.alphabet.value = "ΑΒΓΔΕ"; // Greek — WinAnsi can't print it
   els.alphabet.fire("input"); // the sim itself is fine with it
   await els.download.listeners.click[0]();
   expect(els.error.hidden).toBe(false);
   expect(els.error.textContent).toContain("can't print");
+  expect(globalThis.lastWin.closed).toBe(true); // no orphaned blank tab
+});
+
+test("a blocked popup is reported, not silently swallowed", async () => {
+  const realOpen = globalThis.window.open;
+  globalThis.window.open = () => null;
+  els.alphabet.value = "ABCDE";
+  els.alphabet.fire("input");
+  await els.download.listeners.click[0]();
+  expect(els.error.hidden).toBe(false);
+  expect(els.error.textContent).toContain("Popup blocked");
+  globalThis.window.open = realOpen;
 });
