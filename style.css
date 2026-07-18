@@ -1,0 +1,60 @@
+:root { color-scheme: light dark; }
+
+body {
+  font: 16px/1.55 system-ui, sans-serif;
+  max-width: 44rem;
+  margin: 2rem auto 3rem;
+  padding: 0 1.25rem;
+}
+
+header h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+header p { margin-top: 0; }
+
+#sim { max-width: 540px; margin: 1.5rem auto 0; }
+#sim svg.sim { display: block; width: 100%; height: auto; touch-action: none; cursor: grab; }
+#sim svg.sim:active { cursor: grabbing; }
+#sim svg.sim:focus-visible { outline: 2px solid #7aa2ff; outline-offset: 4px; border-radius: 50%; }
+
+.readout {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  margin: .75rem 0 1.5rem;
+}
+
+.controls { display: grid; gap: .75rem; }
+.controls label { display: grid; gap: .3rem; font-weight: 600; font-size: .9rem; }
+.controls input {
+  font: inherit;
+  font-family: ui-monospace, monospace;
+  padding: .5rem .65rem;
+  border: 1px solid #8886;
+  border-radius: .5rem;
+  background: transparent;
+  color: inherit;
+}
+.controls .buttons { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: .25rem; }
+
+button {
+  font: inherit;
+  font-weight: 600;
+  padding: .55rem 1rem;
+  border: 1.5px solid currentColor;
+  border-radius: .5rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+button.primary { background: #1a7f37; border-color: #1a7f37; color: #fff; }
+button.primary:hover { background: #166b2f; }
+button:hover { background: #8881; }
+
+.error { color: #d33; font-size: .9rem; }
+
+details { margin-top: 2rem; }
+details summary { cursor: pointer; font-weight: 600; }
+details ol { padding-left: 1.2rem; }
+details code { background: #8882; padding: .1em .35em; border-radius: .3em; }
+
+footer { margin-top: 2.5rem; text-align: center; font-size: .85rem; opacity: .75; }
+footer a { color: inherit; }

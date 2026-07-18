@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ciphers — printable decoder ring</title>
+<meta name="description" content="Design a decoder ring, play with it in the browser, then print it as a 2-page PDF — custom alphabet and title.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
+<script type="importmap">
+  { "imports": { "pdf-lib": "https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm" } }
+</script>
+</head>
+<body>
+<header>
+  <h1>🔐 ciphers</h1>
+  <p>Design a <strong>decoder ring</strong>, try it right here — drag the top disc to
+  set the shift — then print it as a 2-page PDF and build the real thing.</p>
+</header>
+
+<main>
+  <div id="sim" aria-live="off"></div>
+  <p id="readout" class="readout">shift 0</p>
+
+  <section class="controls">
+    <label>Title
+      <input id="title" type="text" maxlength="40" autocomplete="off" spellcheck="false">
+    </label>
+    <label>Alphabet
+      <input id="alphabet" type="text" maxlength="80" autocomplete="off" spellcheck="false">
+    </label>
+    <div class="buttons">
+      <button id="download" class="primary">Download PDF (2 pages)</button>
+      <button id="reset">Reset</button>
+    </div>
+    <p id="error" class="error" hidden></p>
+  </section>
+
+  <details>
+    <summary>How to build it</summary>
+    <ol>
+      <li>Print both PDF pages at <strong>100% scale</strong> (no “fit to page”).</li>
+      <li>Cut out both discs along the solid circles — plus the small window slot in the small disc.</li>
+      <li>Place the small disc on the large one and push a split pin through both centre marks.</li>
+      <li>Rotate the small disc to set the key — the window under the pointer shows the shift number.</li>
+      <li>Encode: find each letter on the small disc, write the large-disc letter beside it. Decode: the reverse.</li>
+    </ol>
+  </details>
+</main>
+
+<footer>
+  <a href="https://github.com/jpillora/ciphers">github.com/jpillora/ciphers</a> ·
+  <a href="https://jpillora.com">jpillora.com</a>
+</footer>
+
+<noscript><p style="text-align:center">The simulator needs JavaScript.</p></noscript>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "ciphers",
+  "private": true,
+  "type": "module",
+  "description": "Printable decoder ring — customisable alphabet & title, drag-to-rotate simulator, 2-page PDF",
+  "scripts": {
+    "test": "bun test",
+    "preview": "bun scripts/preview.js",
+    "serve": "python3 -m http.server 8043"
+  },
+  "devDependencies": {
+    "pdf-lib": "^1.17.1"
+  }
+}
