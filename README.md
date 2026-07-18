@@ -49,9 +49,8 @@ bun run serve  # http://localhost:8043 (any static server works)
 bun run preview  # regenerate docs/preview.svg
 ```
 
-Deploys as a static site (GitHub Pages once public; a Cloudflare Worker
-serving `[assets]` meanwhile). Part of the [jpillora.com](https://jpillora.com)
-family of sites.
+Deployed with GitHub Pages from `main`. Part of the
+[jpillora.com](https://jpillora.com) family of sites.
 
 ## License
 

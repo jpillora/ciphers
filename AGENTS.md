@@ -1,17 +1,15 @@
 # ciphers
 
 `ciphers.jpillora.com` — printable decoder-ring generator. **Pure frontend, no
-build step**: plain ES modules served as-is. In the `jpillora.com` monorepo
-this repo is a **git submodule** at `sites/ciphers`.
+build step**: plain ES modules served as-is, deployed by **GitHub Pages** from
+`main` @ root (`.nojekyll` + committed `CNAME`; DNS is `CNAME ciphers →
+jpillora.github.io`, unproxied). In the `jpillora.com` monorepo this repo is a
+**git submodule** at `sites/ciphers` (no `wrangler.toml`, so `dev.ts` ignores
+it; "deploy" = `git push`).
 
-**Deploy target depends on repo visibility.** While the repo is **private**
-(currently), GitHub Pages is unavailable (free plan), so the site deploys as a
-**static-assets-only Cloudflare Worker** (`wrangler.toml` + `.assetsignore`;
-same `ciphers` worker name keeps the custom domain — `bun dev.ts deploy
-ciphers` from the monorepo). When the repo goes **public**: re-enable GitHub
-Pages (branch `main`, root — `.nojekyll` + `CNAME` are already in place), flip
-DNS to `CNAME ciphers → jpillora.github.io`, then delete the Worker and
-`wrangler.toml`.
+> If the repo ever goes **private** again: free-plan GitHub Pages dies with it.
+> The escape hatch (used 2026-07-18) is a static-assets-only Worker named
+> `ciphers` + DNS back to a Workers custom domain — see this file's history.
 
 ## Files
 
@@ -53,13 +51,11 @@ scripts/preview.js  regenerates docs/preview.svg (README image)
 ## Dev / deploy
 
 ```bash
-bun install && bun test      # tests (pdf-lib only dep)
-bun run serve                # local static server :8043
-bun dev.ts deploy ciphers    # from the monorepo root, while private (Worker assets)
-git push                     # while public: = deploy (GitHub Pages, branch main, root)
+bun install && bun test   # tests (pdf-lib only dep)
+bun run serve             # local static server :8043
+git push                  # = deploy (GitHub Pages, branch main, root)
 ```
 
-`.nojekyll` keeps Pages from running Jekyll. `CNAME` maps
-`ciphers.jpillora.com` once the domain points at Pages. Keep everything
-**relative-path** so the site works at `jpillora.github.io/ciphers/` and at
-the custom domain root alike.
+`.nojekyll` keeps Pages from running Jekyll. Keep everything **relative-path**
+so the site works at `jpillora.github.io/ciphers/` and at the custom domain
+root alike.
