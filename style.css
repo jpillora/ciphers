@@ -24,6 +24,7 @@ header p { margin-top: 0; }
 
 .controls { display: grid; gap: .75rem; }
 .controls label { display: grid; gap: .3rem; font-weight: 600; font-size: .9rem; }
+.controls .count { font-weight: 400; opacity: .6; margin-left: .25rem; }
 .controls input {
   font: inherit;
   font-family: ui-monospace, monospace;

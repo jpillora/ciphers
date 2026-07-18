@@ -8,24 +8,35 @@ const titleInput = $("#title");
 const alphabetInput = $("#alphabet");
 const readout = $("#readout");
 const errorBox = $("#error");
+const countBadge = $("#count");
 
 // --- state from the URL hash (#t=…&a=…&s=…), so wheels are shareable ---
 const hash = new URLSearchParams(location.hash.slice(1));
 titleInput.value = hash.get("t") || DEFAULT_TITLE;
 alphabetInput.value = hash.get("a") || DEFAULT_ALPHABET;
 
-const writeHash = () => {
-  const p = new URLSearchParams();
-  if (titleInput.value !== DEFAULT_TITLE) p.set("t", titleInput.value);
-  if (alphabetInput.value !== DEFAULT_ALPHABET) p.set("a", alphabetInput.value);
-  if (sim.shift()) p.set("s", String(sim.shift()));
-  history.replaceState(null, "", p.size ? `#${p}` : location.pathname);
+// Debounced: onShift fires on every drag frame, and Safari throttles
+// history.replaceState hard enough to throw.
+let hashTimer = 0;
+const writeHash = (k) => {
+  clearTimeout(hashTimer);
+  hashTimer = setTimeout(() => {
+    const p = new URLSearchParams();
+    if (titleInput.value !== DEFAULT_TITLE) p.set("t", titleInput.value);
+    if (alphabetInput.value !== DEFAULT_ALPHABET) p.set("a", alphabetInput.value);
+    if (k) p.set("s", String(k));
+    const q = p.toString();
+    history.replaceState(null, "", q ? `#${q}` : location.pathname);
+  }, 150);
 };
 
+// NOTE: called synchronously from inside mountSim(), before `sim` is assigned
+// — must not touch `sim` (that exact TDZ crash once killed all the controls).
 const updateReadout = (k) => {
   const g = normalizeAlphabet(alphabetInput.value);
+  countBadge.textContent = `${g.length} symbols`;
   readout.textContent = `shift ${k} — ${g[0]} → ${g[k % g.length]}`;
-  writeHash();
+  writeHash(k);
 };
 
 const sim = mountSim($("#sim"), { alphabet: alphabetInput.value, title: titleInput.value }, updateReadout);
