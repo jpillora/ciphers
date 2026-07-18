@@ -61,10 +61,13 @@ beforeAll(async () => {
     els[id] = makeEl(id);
   }
   els.sim = makeSimContainer();
+  globalThis.lastAnchor = null;
   globalThis.document = {
     querySelector: (sel) => els[sel.replace(/^#/, "")] || null,
-    createElement: () => ({ click() {}, set href(_) {}, set download(_) {} }),
+    createElement: () => (globalThis.lastAnchor = { href: "", download: "", clicked: false, click() { this.clicked = true; } }),
   };
+  URL.createObjectURL ||= () => "blob:fake";
+  URL.revokeObjectURL ||= () => {};
   globalThis.location = { hash: "", pathname: "/" };
   globalThis.history = { replaceState() {} };
   // rAF that finishes any animation in a single frame (t far past duration).
@@ -116,4 +119,22 @@ test("dragging rotates the top disc and updates the readout", () => {
   const deg = parseFloat(els.sim.inner.attrs.transform.match(/rotate\(([-\d.]+)\)/)[1]);
   expect(Math.abs(deg - 7 * (360 / 26))).toBeLessThan(0.01); // snapped to the grid
   expect(els.readout.textContent).toStartWith("shift 7");
+});
+
+test("download click builds a real PDF and triggers the anchor", async () => {
+  els.title.value = "My Wheel";
+  els.title.fire("input");
+  await els.download.listeners.click[0]();
+  expect(els.error.hidden).toBe(true);
+  expect(globalThis.lastAnchor.clicked).toBe(true);
+  expect(globalThis.lastAnchor.download).toBe("my-wheel.pdf");
+  expect(globalThis.lastAnchor.href).toStartWith("blob:");
+});
+
+test("download click surfaces unprintable-glyph errors instead of crashing", async () => {
+  els.alphabet.value = "ΑΒΓΔΕ"; // Greek — WinAnsi can't print it
+  els.alphabet.fire("input"); // the sim itself is fine with it
+  await els.download.listeners.click[0]();
+  expect(els.error.hidden).toBe(false);
+  expect(els.error.textContent).toContain("can't print");
 });
