@@ -2,7 +2,7 @@
   "name": "ciphers",
   "private": true,
   "type": "module",
-  "description": "Printable decoder ring — customisable alphabet & title, drag-to-rotate simulator, 2-page PDF",
+  "description": "Printable cipher disk — customisable alphabet & title, drag-to-rotate simulator, 2-page PDF",
   "scripts": {
     "test": "bun test",
     "preview": "bun scripts/preview.js",

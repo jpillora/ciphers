@@ -1,6 +1,6 @@
 # ciphers
 
-`ciphers.jpillora.com` — printable decoder-ring generator. **Pure frontend, no
+`ciphers.jpillora.com` — printable cipher-disk generator. **Pure frontend, no
 build step**: plain ES modules served as-is, deployed by **GitHub Pages** from
 `main` @ root (`.nojekyll` + committed `CNAME`; DNS is `CNAME ciphers →
 jpillora.github.io`, unproxied). In the `jpillora.com` monorepo this repo is a

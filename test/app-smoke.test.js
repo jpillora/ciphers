@@ -96,7 +96,7 @@ test("main.js loads without crashing (controls stay wired)", () => {
 });
 
 test("defaults land in the inputs and the readout", () => {
-  expect(els.title.value).toBe("Decoder Ring");
+  expect(els.title.value).toBe("Cipher Disk");
   expect(els.alphabet.value).toBe("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
   expect(els.count.textContent).toBe("26 symbols");
   expect(els.readout.textContent).toStartWith("shift 0");

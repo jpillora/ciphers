@@ -1,6 +1,6 @@
 # 🔐 ciphers
 
-Design a **decoder ring** in the browser, play with it — drag the top disc to
+Design a **cipher disk** in the browser, play with it — drag the top disc to
 set the shift — then print it as a **2-page PDF**, cut out the discs, pin them
 together, and en/decode for real.
 
@@ -12,7 +12,7 @@ together, and en/decode for real.
 
 - **Custom alphabet** (default A–Z) — any set of symbols, deduped, emoji work
   on-screen (the PDF's built-in fonts are Latin-1 only)
-- **Custom title** (default “Decoder Ring”) — printed on both pages and the
+- **Custom title** (default “Cipher Disk”) — printed on both pages and the
   small disc's face
 - **Simulator** — the assembled wheel with a draggable, snap-to-sector top disc
 - **Shift window** — a slot in the top disc reveals the rotation count printed

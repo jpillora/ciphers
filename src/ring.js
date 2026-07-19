@@ -1,4 +1,4 @@
-// Decoder-ring core: shared geometry + the two renderers.
+// Cipher-disk core: shared geometry + the two renderers.
 //
 // A cipher wheel is two discs pinned through the centre. Page 1 / the lower
 // layer is the OUTER disc (r 90mm): the alphabet (plus 1..n) drawn in the
@@ -14,7 +14,7 @@
 // node_modules.
 
 export const DEFAULT_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-export const DEFAULT_TITLE = "Decoder Ring";
+export const DEFAULT_TITLE = "Cipher Disk";
 export const CREDIT = "ciphers.jpillora.com";
 
 // All radii in mm. Everything on the outer disc inside r=65 is covered once

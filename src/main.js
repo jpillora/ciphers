@@ -71,7 +71,7 @@ $("#download").addEventListener("click", async () => {
     return;
   }
   win.document.write(
-    '<title>Decoder Ring</title><p style="font:15px system-ui;padding:1.5rem">Generating PDF…</p>',
+    '<title>Cipher Disk</title><p style="font:15px system-ui;padding:1.5rem">Generating PDF…</p>',
   );
   try {
     const bytes = await buildRingPdf({ alphabet: alphabetInput.value, title: titleInput.value });
