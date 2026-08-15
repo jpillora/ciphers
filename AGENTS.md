@@ -3,7 +3,8 @@
 `ciphers.jpillora.com` — printable cipher-disk generator. **Pure frontend, no
 build step**: plain ES modules served as-is, deployed by **GitHub Pages** from
 `main` @ root (`.nojekyll` + committed `CNAME`; DNS is `CNAME ciphers →
-jpillora.github.io`, unproxied). In the `jpillora.com` monorepo this repo is a
+jpillora.github.io`, unproxied). GitHub Pages HTTPS enforcement is enabled, so
+plain HTTP redirects to HTTPS. In the `jpillora.com` monorepo this repo is a
 **git submodule** at `sites/ciphers` (no `wrangler.toml`, so `dev.ts` ignores
 it; "deploy" = `git push`).
 
