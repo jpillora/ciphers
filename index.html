@@ -2,18 +2,30 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>ciphers — printable cipher disk</title>
 <meta name="description" content="Design a cipher disk, play with it in the browser, then print it as a 2-page PDF — custom alphabet and title.">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
 <script type="importmap">
   { "imports": { "pdf-lib": "https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm" } }
 </script>
+
+    <link rel="stylesheet" href="https://jpillora.com/_/design/v1/design.css">
+    <meta property="og:title" content="Ciphers">
+    <meta property="og:description" content="Design, try and print your own cipher disk.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ciphers.jpillora.com/">
+    <meta property="og:image" content="https://jpillora.com/_/design/v1/cards/ciphers.png">
+    <meta property="og:image:alt" content="Ciphers app icon on its signature color">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://jpillora.com/_/design/v1/cards/ciphers.png">
+      <link rel="icon" type="image/png" href="https://jpillora.com/_/design/v1/icons/ciphers.png">
 </head>
 <body>
 <header>
-  <h1>🔐 ciphers</h1>
+  <h1><span class="jp-icon" data-icon="lock" aria-hidden="true"></span> ciphers</h1>
   <p>Design a <strong>cipher disk</strong>, try it right here — drag the top disc to
   set the shift — then print it as a 2-page PDF and build the real thing.</p>
 </header>
@@ -24,14 +36,14 @@
 
   <section class="controls">
     <label>Title
-      <input id="title" type="text" maxlength="40" autocomplete="off" spellcheck="false">
+      <input class="jp-input" id="title" type="text" maxlength="40" autocomplete="off" spellcheck="false">
     </label>
     <label><span>Alphabet <span id="count" class="count"></span></span>
-      <input id="alphabet" type="text" maxlength="80" autocomplete="off" spellcheck="false">
+      <input class="jp-input" id="alphabet" type="text" maxlength="80" autocomplete="off" spellcheck="false">
     </label>
     <div class="buttons">
-      <button id="download" class="primary">Open PDF (2 pages)</button>
-      <button id="reset">Reset</button>
+      <button id="download" class="primary jp-button jp-button-primary">Open PDF (2 pages)</button>
+      <button id="reset" class="jp-button">Reset</button>
     </div>
     <p id="error" class="error" hidden></p>
   </section>

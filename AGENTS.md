@@ -60,3 +60,10 @@ git push                  # = deploy (GitHub Pages, branch main, root)
 `.nojekyll` keeps Pages from running Jekyll. Keep everything **relative-path**
 so the site works at `jpillora.github.io/ciphers/` and at the custom domain
 root alike.
+
+## Shared design
+
+Follow the root [design directives](../../AGENTS.md#design-system--all-sites).
+The UI uses the shared Inter font, Nerd Fonts semantic icons and branded share
+assets at `https://jpillora.com/_/design/v1/`. Keep app-specific visualizations
+and brand artwork separate from action icons.

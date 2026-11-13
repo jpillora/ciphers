@@ -1,7 +1,7 @@
 :root { color-scheme: light dark; }
 
 body {
-  font: 16px/1.55 system-ui, sans-serif;
+  font: 16px/1.55 var(--jp-font, Inter, sans-serif);
   max-width: 44rem;
   margin: 2rem auto 3rem;
   padding: 0 1.25rem;
@@ -59,3 +59,32 @@ details code { background: #8882; padding: .1em .35em; border-radius: .3em; }
 
 footer { margin-top: 2.5rem; text-align: center; font-size: .85rem; opacity: .75; }
 footer a { color: inherit; }
+
+/* Shared design rules: monorepo AGENTS.md, Design system — all sites. */
+:root { --jp-accent: #bb9a48; }
+
+/* Use the common palette and geometry while retaining this app's layout. */
+:root {
+  --bg: var(--jp-bg);
+  --panel: var(--jp-surface);
+  --panel-2: var(--jp-surface);
+  --text: var(--jp-text);
+  --ink: var(--jp-text);
+  --muted: var(--jp-muted);
+  --line: var(--jp-border);
+  --border: var(--jp-border);
+  --radius: var(--jp-radius);
+  --accent: var(--jp-accent);
+  color-scheme: light dark;
+}
+:root, body { color: var(--jp-text); background-color: var(--jp-bg); }
+
+button:not(.square):not(.x):not(.close):not(.chip), input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]), select, textarea {
+  border-radius: var(--jp-radius);
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]), select { min-height: var(--jp-control-height); }
+button:not(.square):focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
+  outline: 2px solid var(--jp-accent); outline-offset: 3px;
+}
+button:not(.close):not(.chip):not(.pathogen-signal):not(.text-button) { min-height: var(--jp-control-height); }
+button:not(.close):not(.chip):not(.text-button), input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="hidden"]), select { padding: var(--jp-space-2) var(--jp-space-3); }

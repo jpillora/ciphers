@@ -71,7 +71,7 @@ $("#download").addEventListener("click", async () => {
     return;
   }
   win.document.write(
-    '<title>Cipher Disk</title><p style="font:15px system-ui;padding:1.5rem">Generating PDF…</p>',
+    '<title>Cipher Disk</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><link rel="stylesheet" href="https://jpillora.com/_/design/v1/design.css"><p style="font:15px Inter,sans-serif;padding:1.5rem">Generating PDF…</p>',
   );
   try {
     const bytes = await buildRingPdf({ alphabet: alphabetInput.value, title: titleInput.value });
